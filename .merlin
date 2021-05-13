@@ -1,0 +1,20 @@
+####{BSB GENERATED: NO EDIT
+B lib\bs
+FLG -open RescriptReactIntro
+FLG -ppx "C:\code\henry\pixel-art-rescript-react\node_modules\bs-platform\win32\bsc.exe -as-ppx -bs-jsx 3"
+S C:\code\henry\pixel-art-rescript-react\node_modules\bs-platform\lib\ocaml
+B C:\code\henry\pixel-art-rescript-react\node_modules\bs-platform\lib\ocaml
+FLG -w +a-4-9-20-40-41-42-50-61-102
+S C:\code\henry\pixel-art-rescript-react\node_modules\@rescript\react\lib\ocaml
+B C:\code\henry\pixel-art-rescript-react\node_modules\@rescript\react\lib\ocaml
+S C:\code\henry\pixel-art-rescript-react\node_modules\bs-webapi\lib\ocaml
+B C:\code\henry\pixel-art-rescript-react\node_modules\bs-webapi\lib\ocaml
+S src
+B lib\bs\src
+S src\store
+B lib\bs\src\store
+S src\components
+B lib\bs\src\components
+S src\bindings
+B lib\bs\src\bindings
+####BSB GENERATED: NO EDIT}

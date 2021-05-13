@@ -4,10 +4,13 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
+    "@rescript/react": "^0.10.2",
     "@types/node": "^12.20.4",
     "@types/react": "^16.14.4",
     "@types/react-dom": "^16.9.11",
     "@types/react-redux": "^7.1.16",
+    "bs-platform": "^9.0.2",
+    "bs-webapi": "^0.19.1",
     "react": "^17.0.1",
     "react-color": "^2.19.3",
     "react-dom": "^17.0.1",
@@ -21,7 +24,8 @@
     "@types/styled-components": "^5.1.7"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "compile-watch": "bsb -make-world -w"
   },
   "eslintConfig": {
     "extends": "react-app"
