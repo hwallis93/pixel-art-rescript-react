@@ -1,11 +1,20 @@
-module Provider = {
-  @react.component @module("react-redux")
-  external make: (~store: Redux.store, ~children: React.element) => React.element = "Provider"
+module Styles = {
+  open CssJs
+
+  let app = () =>
+    style(. [
+      display(#flex),
+      position(#absolute),
+      top(0->px),
+      left(0->px),
+      height(100.0->#percent),
+      width(100.0->#percent),
+    ])
 }
 
 @react.component
 let make = () => {
-  <Provider store=Store.store> <div> {React.string("Hi")} </div> </Provider>
+  <span className={Styles.app()}> {React.string("Controls")} {React.string("Grid")} </span>
 }
 
 // import React, { useEffect } from "react";

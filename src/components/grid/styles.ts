@@ -12,9 +12,6 @@ export const GridContainer = styled.div<GridContainerProps>`
   height: ${(props) => props.size}px;
 `;
 
-let x: TemplateStringsArray = [`abc`];
-styled.div([`abc`]);
-
 interface CellContainerProps {
   colour: string;
   showBorder: boolean;

@@ -19,5 +19,10 @@
   "suffix": ".bs.js",
   "namespace": true,
 
-  "bs-dependencies": ["@rescript/react", "bs-webapi"]
+  "bs-dependencies": [
+    "@rescript/react",
+    "bs-webapi",
+    "bs-css",
+    "bs-css-emotion"
+  ]
 }

@@ -1,11 +1,11 @@
 module Provider = {
   @react.component @module("react-redux")
-  external make: (~store: Redux.store) => React.element = "Provider"
+  external make: (~store: Redux.store, ~children: React.element) => React.element = "Provider"
 }
 
 switch ReactDOM.querySelector("#root") {
 | None => ()
-| Some(root) => ReactDOM.render(<App />, root)
+| Some(root) => ReactDOM.render(<Provider store=Store.store> <App /> </Provider>, root)
 }
 
 // import React from "react";
