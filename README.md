@@ -1,17 +1,20 @@
-# Pixel art (TypeScript + React)
+# Pixel art (ReScript + React)
 
 This repo is one of several in which I've written the same app using different languages. See [frontends-comparison](https://github.com/hwallis93/frontends-comparison) for more info.
 
-The app is based off Create React App, so can be launched with `npm start`.
+This version of the app is based off [ReScript](https://rescript-lang.org/) and Create React App.
 
 It looks like this:
 ![Bulbasaur](./bulbasaur-with-lines.png)
 
-
-# ReScript notes
-- Reductive made me use the old `reason-react` bindings instead of `@rescript/react` :(
-- Binding to Redux toolkit was probably more complex than binding to Redux, even considering the simplicity that toolkit gives you
-- Could try binding to Redux...?
+# ReScript thoughts
+- Functional aspects and solid typing make it very pleasant and safe to write
+- JS interop is great, really easy to add a 3rd party React component
+- Compiler is really fast and its output is legible
+  - This is especially helpful when trying to get JS interop (`external`) calls just right
+- Docs are solid
+- Dom interaction isn't great yet
+- Some weirdnesses in the language that show it's still growing (e.g. `Js.Array` vs `Js.Array2`)
 
 # TOdo
 - KEys for maps of elements
