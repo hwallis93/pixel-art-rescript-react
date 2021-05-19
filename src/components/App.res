@@ -12,9 +12,45 @@ module Styles = {
     ])
 }
 
+type element = {
+  clientHeight: option<int>,
+  clientWidth: option<int>,
+}
+type document = {getElementById: (. string) => Js.Nullable.t<element>}
+@val external document: document = "document"
+
 @react.component
 let make = () => {
-  <span className={Styles.app()}> {React.string("Controls")} {React.string("Grid")} </span>
+  let dispatch = Redux.Store.useDispatch()
+  // TODO shrink this logic?
+  let updateGridDimension = _ => {
+    switch document.getElementById(. "appContainer")->Js.Nullable.toOption {
+    | Some(appContainer) => {
+        let height = appContainer.clientHeight
+        let width = appContainer.clientWidth
+        let targetHeight = switch (height, width) {
+        | (Some(h), Some(w)) => Js.Math.min_int(h, w - 220)
+        | _ => 0
+        }
+        dispatch(SetDimension(targetHeight))
+      }
+    | None => ()
+    }
+  }
+
+  React.useEffect(() => {
+    updateGridDimension()
+    Webapi.Dom.window |> Webapi.Dom.Window.addEventListener("resize", updateGridDimension)
+    Some(
+      () =>
+        Webapi.Dom.document |> Webapi.Dom.Document.removeEventListener(
+          "resize",
+          updateGridDimension,
+        ),
+    )
+  })
+
+  <span className={Styles.app()} id="appContainer"> <Controls /> <Grid /> </span>
 }
 
 // import React, { useEffect } from "react";
