@@ -7,10 +7,10 @@ module Styles = {
       justifyContent(#center),
       display(#flex),
       width(100.0->#percent),
-      padding2(~h=5->px, ~v=0->px),
+      padding2(~h=0->px, ~v=5->px),
     ])
-  let resizebutton = () => style(. [margin2(~h=0->px, ~v=5->px)])
-  let gridLinesButton = () => style(. [margin2(~h=5->px, ~v=0->px)])
+  let resizebutton = () => style(. [margin2(~h=5->px, ~v=0->px)])
+  let gridLinesButton = () => style(. [margin2(~h=0->px, ~v=5->px)])
 }
 
 module SketchPicker = {
@@ -46,6 +46,7 @@ let make = () => {
       <button className={Styles.resizebutton()} onClick={_ => changeGridSize(1)}>
         {React.string("+")}
       </button>
+      {React.string(gridSize->Js.Int.toString)}
       <button className={Styles.resizebutton()} onClick={_ => changeGridSize(-1)}>
         {React.string("-")}
       </button>
