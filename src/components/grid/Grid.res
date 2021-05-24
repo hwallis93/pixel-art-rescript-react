@@ -35,11 +35,12 @@ module Cell = {
     let pickedColour = useSelector(pickedColour)
     let showBorder = useSelector(showBorder)
 
-    let handleClick = _ => dispatch(SetCellColour({colour: pickedColour, coordinates: coordinates}))
+    let handleClick = _ =>
+      dispatch(GridAction(SetCellColour({colour: pickedColour, coordinates: coordinates})))
 
     let handleRightClick = (event: ReactEvent.Mouse.t) => {
       event->ReactEvent.Mouse.preventDefault
-      dispatch(SetPaintColour(colour))
+      dispatch(SettingsAction(SetPaintColour(colour)))
     }
     <div
       className={Styles.cellContainer(~colour, ~showBorder)}
@@ -62,7 +63,11 @@ let make = () => {
       gridCells->Js.Array2.mapi((row, rowIndex) => {
         React.array(
           row->Js.Array2.mapi((cell, colIndex) => {
-            <Cell colour={cell} coordinates={(rowIndex, colIndex)} />
+            <Cell
+              colour={cell}
+              coordinates={(rowIndex, colIndex)}
+              key={`${colIndex->Js.Int.toString}, ${rowIndex->Js.Int.toString}`}
+            />
           }),
         )
       }),

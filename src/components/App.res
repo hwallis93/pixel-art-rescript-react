@@ -12,27 +12,29 @@ module Styles = {
     ])
 }
 
-type element = {
-  clientHeight: option<int>,
-  clientWidth: option<int>,
-}
-type document = {getElementById: (. string) => Js.Nullable.t<element>}
-@val external document: document = "document"
+module Dom = Webapi.Dom
+let window = Dom.window
+let document = Dom.document
+let addEventListener = Dom.Window.addEventListener
+let removeEventListener = Dom.Document.removeEventListener
+let getElementById = Dom.Document.getElementById
 
 @react.component
 let make = () => {
   let dispatch = Redux.Store.useDispatch()
-  // TODO shrink this logic?
+
   let updateGridDimension = _ => {
-    switch document.getElementById(. "appContainer")->Js.Nullable.toOption {
+    switch document |> getElementById("appContainer") {
     | Some(appContainer) => {
-        let height = appContainer.clientHeight
-        let width = appContainer.clientWidth
+        let height = appContainer->Dom.Element.clientHeight
+        let width = appContainer->Dom.Element.clientWidth
+
         let targetHeight = switch (height, width) {
-        | (Some(h), Some(w)) => Js.Math.min_int(h, w - 220)
+        | (h, w) if h > 0 && w > 0 => Js.Math.min_int(h, w - 220)
         | _ => 0
         }
-        dispatch(SetDimension(targetHeight))
+
+        dispatch(GridAction(SetDimension(targetHeight)))
       }
     | None => ()
     }
@@ -40,14 +42,9 @@ let make = () => {
 
   React.useEffect(() => {
     updateGridDimension()
-    Webapi.Dom.window |> Webapi.Dom.Window.addEventListener("resize", updateGridDimension)
-    Some(
-      () =>
-        Webapi.Dom.document |> Webapi.Dom.Document.removeEventListener(
-          "resize",
-          updateGridDimension,
-        ),
-    )
+    window |> addEventListener("resize", updateGridDimension)
+
+    Some(() => document |> removeEventListener("resize", updateGridDimension))
   })
 
   <span className={Styles.app()} id="appContainer"> <Controls /> <Grid /> </span>

@@ -55,16 +55,21 @@ function Grid$Cell(Props) {
   var showBorder$1 = Curry._1(useSelector, showBorder);
   var handleClick = function (param) {
     return Curry._1(dispatch, {
-                TAG: /* SetCellColour */2,
-                colour: pickedColour$1,
-                coordinates: coordinates
+                TAG: /* GridAction */0,
+                _0: {
+                  TAG: /* SetCellColour */1,
+                  colour: pickedColour$1,
+                  coordinates: coordinates
+                }
               });
   };
   var handleRightClick = function ($$event) {
     $$event.preventDefault();
     return Curry._1(dispatch, {
-                TAG: /* SetPaintColour */0,
-                _0: colour
+                TAG: /* SettingsAction */1,
+                _0: /* SetPaintColour */{
+                  _0: colour
+                }
               });
   };
   return React.createElement("div", {
@@ -100,7 +105,8 @@ function Grid(Props) {
                                           coordinates: [
                                             rowIndex,
                                             colIndex
-                                          ]
+                                          ],
+                                          key: colIndex.toString() + ", " + rowIndex.toString()
                                         });
                             });
                 }));

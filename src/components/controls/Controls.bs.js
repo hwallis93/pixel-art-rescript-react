@@ -22,16 +22,16 @@ function buttonsContainer(param) {
                     NAME: "percent",
                     VAL: 100.0
                   }),
-              CssJs.padding2(CssJs.px(0), CssJs.px(5))
+              CssJs.padding2(CssJs.px(5), CssJs.px(0))
             ]);
 }
 
 function resizebutton(param) {
-  return CssJs.style([CssJs.margin2(CssJs.px(5), CssJs.px(0))]);
+  return CssJs.style([CssJs.margin2(CssJs.px(0), CssJs.px(5))]);
 }
 
 function gridLinesButton(param) {
-  return CssJs.style([CssJs.margin2(CssJs.px(0), CssJs.px(5))]);
+  return CssJs.style([CssJs.margin2(CssJs.px(5), CssJs.px(0))]);
 }
 
 var Styles = {
@@ -66,14 +66,19 @@ function Controls(Props) {
   var showGridLines$1 = Curry._1(useSelector, showGridLines);
   var changeGridSize = function (change) {
     return Curry._1(dispatch, {
-                TAG: /* SetSize */1,
-                _0: gridSize$1 + change | 0
+                TAG: /* GridAction */0,
+                _0: {
+                  TAG: /* SetSize */2,
+                  _0: gridSize$1 + change | 0
+                }
               });
   };
   var handlePickerChange = function (colour) {
     return Curry._1(dispatch, {
-                TAG: /* SetPaintColour */0,
-                _0: colour.hex
+                TAG: /* SettingsAction */1,
+                _0: /* SetPaintColour */{
+                  _0: colour.hex
+                }
               });
   };
   return React.createElement("span", {
@@ -85,7 +90,7 @@ function Controls(Props) {
                       onClick: (function (param) {
                           return changeGridSize(1);
                         })
-                    }, "+"), React.createElement("button", {
+                    }, "+"), gridSize$1.toString(), React.createElement("button", {
                       className: resizebutton(undefined),
                       onClick: (function (param) {
                           return changeGridSize(-1);
@@ -93,7 +98,10 @@ function Controls(Props) {
                     }, "-")), React.createElement("button", {
                   className: gridLinesButton(undefined),
                   onClick: (function (param) {
-                      return Curry._1(dispatch, /* ToggleShowGridLines */0);
+                      return Curry._1(dispatch, {
+                                  TAG: /* SettingsAction */1,
+                                  _0: /* ToggleShowGridLines */0
+                                });
                     })
                 }, showGridLines$1 ? "Hide grid lines" : "Show grid lines"), React.createElement(ReactColor.SketchPicker, {
                   color: pickedColour$1,

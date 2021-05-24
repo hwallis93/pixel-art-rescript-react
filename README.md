@@ -10,11 +10,10 @@ It looks like this:
 # ReScript thoughts
 - Functional aspects and solid typing make it very pleasant and safe to write
 - JS interop is great, really easy to add a 3rd party React component
+- Impossible to write invalid CSS
 - Compiler is really fast and its output is legible
   - This is especially helpful when trying to get JS interop (`external`) calls just right
 - Docs are solid
-- Dom interaction isn't great yet
+- DOM interaction isn't great yet, but not bad either
 - Some weirdnesses in the language that show it's still growing (e.g. `Js.Array` vs `Js.Array2`)
 
-# TOdo
-- KEys for maps of elements

@@ -37,9 +37,9 @@ let make = () => {
   let gridSize = useSelector(gridSize)
   let showGridLines = useSelector(showGridLines)
 
-  let changeGridSize = (change: int) => dispatch(SetSize(gridSize + change))
+  let changeGridSize = (change: int) => dispatch(GridAction(SetSize(gridSize + change)))
   let handlePickerChange = (colour: SketchPicker.colorResult) =>
-    dispatch(SetPaintColour(colour.hex))
+    dispatch(SettingsAction(SetPaintColour(colour.hex)))
 
   <span className={Styles.controlsContainer()}>
     <span className={Styles.buttonsContainer()}>
@@ -51,7 +51,9 @@ let make = () => {
         {React.string("-")}
       </button>
     </span>
-    <button className={Styles.gridLinesButton()} onClick={_ => dispatch(ToggleShowGridLines)}>
+    <button
+      className={Styles.gridLinesButton()}
+      onClick={_ => dispatch(SettingsAction(ToggleShowGridLines))}>
       {showGridLines ? React.string("Hide grid lines") : React.string("Show grid lines")}
     </button>
     <SketchPicker color={pickedColour} onChangeComplete={handlePickerChange} />

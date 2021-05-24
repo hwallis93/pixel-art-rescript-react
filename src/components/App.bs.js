@@ -3,6 +3,7 @@
 import * as CssJs from "bs-css-emotion/src/CssJs.bs.js";
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
+import * as Caml_option from "bs-platform/lib/es6/caml_option.js";
 import * as Grid$RescriptReactIntro from "./grid/Grid.bs.js";
 import * as Redux$RescriptReactIntro from "../store/Redux.bs.js";
 import * as Controls$RescriptReactIntro from "./controls/Controls.bs.js";
@@ -28,27 +29,47 @@ var Styles = {
   app: app
 };
 
+var $$window = window;
+
+var $$document = document;
+
+function addEventListener(prim, prim$1, prim$2) {
+  prim$2.addEventListener(prim, prim$1);
+  
+}
+
+function removeEventListener(prim, prim$1, prim$2) {
+  prim$2.removeEventListener(prim, prim$1);
+  
+}
+
+function getElementById(prim, prim$1) {
+  return Caml_option.nullable_to_opt(prim$1.getElementById(prim));
+}
+
 function App(Props) {
   var dispatch = Curry._1(Redux$RescriptReactIntro.Store.useDispatch, undefined);
   var updateGridDimension = function (param) {
-    var appContainer = document.getElementById("appContainer");
+    var appContainer = $$document.getElementById("appContainer");
     if (appContainer == null) {
       return ;
     }
     var height = appContainer.clientHeight;
     var width = appContainer.clientWidth;
-    var targetHeight = height !== undefined && width !== undefined ? Math.min(height, width - 220 | 0) : 0;
+    var targetHeight = height > 0 && width > 0 ? Math.min(height, width - 220 | 0) : 0;
     return Curry._1(dispatch, {
-                TAG: /* SetDimension */3,
-                _0: targetHeight
+                TAG: /* GridAction */0,
+                _0: {
+                  TAG: /* SetDimension */0,
+                  _0: targetHeight
+                }
               });
   };
   React.useEffect(function () {
         updateGridDimension(undefined);
-        window.addEventListener("resize", updateGridDimension);
+        addEventListener("resize", updateGridDimension, $$window);
         return (function (param) {
-                  document.removeEventListener("resize", updateGridDimension);
-                  
+                  return removeEventListener("resize", updateGridDimension, $$document);
                 });
       });
   return React.createElement("span", {
@@ -57,11 +78,19 @@ function App(Props) {
             }, React.createElement(Controls$RescriptReactIntro.make, {}), React.createElement(Grid$RescriptReactIntro.make, {}));
 }
 
+var Dom;
+
 var make = App;
 
 export {
   Styles ,
+  Dom ,
+  $$window ,
+  $$document ,
+  addEventListener ,
+  removeEventListener ,
+  getElementById ,
   make ,
   
 }
-/* CssJs Not a pure module */
+/* window Not a pure module */
